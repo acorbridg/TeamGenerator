@@ -1,4 +1,4 @@
-const intern = require("../employeejs/intern")
+const intern = require("../employeejs/Intern")
 
 
 // test('what the test does', () => {
