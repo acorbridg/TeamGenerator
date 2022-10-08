@@ -1,23 +1,18 @@
-class engineer {
-    constructor(id,name,email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+import Employee from "./Employee";
+
+class Engineer extends Employee {
+    constructor(id,name,email,github) {
+        super(id,name,email)
         this.github = github;
     }
 
-    getId() {
-
+    getGithub() {
+        return this.github;
     }
 
-    getName() {
-        //grab the name information
+    getRole() {
+        return "Engineer";
     }
-
-    getEmail() {
-        //grab the email information
-    }
-
 }
 
-module.exports = engineer;
+module.exports = Engineer;

@@ -1,22 +1,18 @@
-class manager {
-    constructor(id,name,email) {
-        this.id = id;
-        this.name = name;
-        this.email = email; 
+import Employee from "./Employee";
+
+class Manager extends Employee {
+    constructor(id,name,email,office) {
+        super(id,name,email); 
+        this.office = office;
     }
 
-    getId() {
-
+    getOffice() {
+        return this.office
     }
 
-    getName() {
-        //grab the name information
+    getRole() {
+        return "Manager";
     }
-
-    getEmail() {
-        //grab the email information
-    }
-
 }
 
-module.exports = manager;
+module.exports = Manager;

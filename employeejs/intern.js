@@ -1,22 +1,18 @@
-class intern {
-    constructor(id,name,email) {
-        this.id = id;
-        this.name = name;
-        this.email = email; 
+import Employee from "./Employee";
+
+class Intern extends Employee{
+    constructor(id,name,email,school) {
+        super(id,name,email)
+        this.school = school; 
     }
 
-    getId() {
-
+    getSchool() {
+        return this.school;
     }
 
-    getName() {
-        //grab the name information
+    getRole() {
+        return "Intern";
     }
-
-    getEmail() {
-        //grab the email information
-    }
-
 }
 
-module.exports = intern;
+module.exports = Intern;
