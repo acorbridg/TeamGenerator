@@ -1,4 +1,4 @@
-import Employee from "./Employee";
+import Employee from "./Employee.js";
 
 class Intern extends Employee{
     constructor(id,name,email,school) {
@@ -15,4 +15,4 @@ class Intern extends Employee{
     }
 }
 
-module.exports = Intern;
+export default Intern;

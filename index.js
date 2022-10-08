@@ -1,22 +1,9 @@
-const fs = require("fs");
-const inquirer = require("inquirer")
-const content = [
-    {
-        name: "Audrey", 
-        title: "Super Villian", 
-        email: "blah@gmail.com", 
-        id: "001", 
-        phone: "435-590-5894",
-        office: "Lair"
-    },
-    {
-        name: "Aaron", 
-        title: "Super Villian's Brother", 
-        email: "blahblah@gmail.com", 
-        id: "002", 
-        phone: "801-867-5309"
-    },
-]
+import fs from "fs";
+import inquirer from "inquirer"
+import Intern from "./employeejs/Intern.js"
+import Engineer from "./employeejs/Engineer.js"
+import Manager from "./employeejs/Manager.js"
+const content = [new Engineer("1", "audrey", "adybass@gmail.com", "acorbridg")]
 
 const EmployeeTemplate = `
 <div class="card employee">
@@ -49,30 +36,64 @@ const ManagerTemplate = `
     </div>
 </div>`;
 
-fs.readFile('./src/htmltemplate.html', 'utf8', function(err, html){
-    let allCards = ""
-    content.forEach(element => {
-        let currentCard = EmployeeTemplate.slice();
-        currentCard = currentCard.replace("$NAME", element.name);
-        currentCard = currentCard.replace("$TITLE", element.title);
-        currentCard = currentCard.replace("$EMAIL", element.email);
-        currentCard = currentCard.replace("$IDNUMBER", element.id);
-        currentCard = currentCard.replace("$PHONE", element.phone);
-        allCards += currentCard
+function generateFile () {
+    fs.readFile('./src/htmltemplate.html', 'utf8', function(err, html){
+        let allCards = ""
+        content.forEach(element => {
+            let currentCard = EmployeeTemplate.slice();
+            currentCard = currentCard.replace("$NAME", element.getName());
+            currentCard = currentCard.replace("$TITLE", element.getRole());
+            currentCard = currentCard.replace("$EMAIL", element.getEmail());
+            currentCard = currentCard.replace("$IDNUMBER", element.getId());;
+            allCards += currentCard
+        });
+        html = html.replace("$CARD", allCards )
+        fs.writeFileSync("./public/index.html", html)
     });
-    html = html.replace("$CARD", allCards )
-    fs.writeFileSync("./public/index.html", html)
+}
 
-    
-   
-    
+const questions = [
+    {
+        type: "input", 
+        message: "what is your name?",
+        name: "name",
+    },
+    {
+        type: "input", 
+        message: "employee title?",
+        name: "title",
+    },  
+    {
+        type: "input", 
+        message: "phone number?",
+        name: "phone",
+    },  
+    {
+        type: "input", 
+        message: "employee email address",
+        name: "email",
+    },  
+    {
+        type: "input", 
+        message: "employee id?",
+        name: "id",
+    },
+    {
+        type: "input", 
+        message: "github page?",
+        name: "github",
+    }
+]
+
+inquirer.prompt(questions).then((answers) => {
+    let employee = new Engineer(answers.id,answers.name,answers.email,answers.github) 
+    content.push(employee)
+    console.log(content)
+    generateFile()
 });
-  
-console.log('readFile called');
+
 // //add employeejs
-// const Intern = require("./employeejs/Intern.js")
-// const Engineer = require("./employeejs/Engineer.js")
-// const Manager = require("./employeejs/Manager.js")
+
 // //add template HTML
     
 // const createHTML = require("./src/templatehelpercode.html")
