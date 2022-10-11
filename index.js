@@ -3,8 +3,7 @@ import inquirer from "inquirer"
 import Intern from "./employeejs/Intern.js"
 import Engineer from "./employeejs/Engineer.js"
 import Manager from "./employeejs/Manager.js"
-const content = [new Engineer("1", "audrey", "adybass@gmail.com", "acorbridg")]
-
+const content = []
 const EmployeeTemplate = `
 <div class="card employee">
     <div class="card-header">
@@ -14,8 +13,7 @@ const EmployeeTemplate = `
     <div class="card-body">
         <ul class="information">
             <li>ID: $IDNUMBER</li>
-            <li>Email: <a href="mailto:email address">$EMAIL</a></li>
-            <li>Phone: $PHONE</li>
+            <li>Email: <a href="mailto:email address">$EMAIL</a></li> 
         </ul>
     </div>
 </div>`;
@@ -54,47 +52,96 @@ function generateFile () {
 
 const questions = [
     {
-        type: "input", 
-        message: "what is your name?",
+        type: "input",
+        message: "Team managers name?",
         name: "name",
     },
     {
-        type: "input", 
-        message: "employee title?",
-        name: "title",
-    },  
-    {
-        type: "input", 
-        message: "phone number?",
-        name: "phone",
-    },  
-    {
-        type: "input", 
-        message: "employee email address",
-        name: "email",
-    },  
-    {
-        type: "input", 
-        message: "employee id?",
-        name: "id",
+        type: "input",
+        message: "Team manager ID number?",
+        name: "ID",
     },
     {
-        type: "input", 
-        message: "github page?",
-        name: "github",
-    }
+        type: "input",
+        message: "Team manager email address?",
+        name: "email",
+    },
+    {
+        type: "input",
+        message: "Team manager office number?",
+        name: "officeNumber",
+    },
+    
+    {
+        type: "list",
+        message: "Enter new employee",
+        name: "employeeType",
+        choices: ["Engineer", "Intern", "Finish building my team"]
+    },
 ]
 
+function createMember() {
+    if (createMember.employeeType === "Engineer") {
+        const engineerQuestions = [
+            {
+                type: "input",
+                message: "Engineer's name?",
+                name: "engineerName",
+            },
+            {
+                type: "input",
+                message: "Engineer's ID number?",
+                name: "engineerID",
+            },
+            {
+                type: "input",
+                message: "Engineer's email address?",
+                name: "engineerEmail",
+            },
+            {
+                type: "input",
+                message: "Engineer's Github username?",
+                name: "engineerGithub",
+            },
+        ]
+    }
+}
+
+// else if (answers.employeeType === "Intern") {
+//     const internQuestions = await inquirer
+//     .createPromptModule([
+//         {
+//             type: "input",
+//             message: "Intern's name?",
+//             name: "internName",
+//         },
+//         {
+//             type: "input",
+//             message: "Intern's ID number?",
+//             name: "internID",
+//         },
+//         {
+//             type: "input",
+//             message: "Intern's email address?",
+//             name: "internEmail",
+//         },
+//         {
+//             type: "input",
+//             message: "Intern's school?",
+//             name: "internOffice",
+//         },
+//     ])
+//     return createTeamMember;
+// }
+
+
 inquirer.prompt(questions).then((answers) => {
-    let employee = new Engineer(answers.id,answers.name,answers.email,answers.github) 
+    // let employee = new Engineer(answers.id,answers.name,answers.email,answers.github);
+    // let employee = new Intern (answers.id,answers.name,answers.email,answers.school);
+    let employee = new Manager (answers.id,answers.name,answers.email,answers.office); 
     content.push(employee)
-    console.log(content)
     generateFile()
 });
-
-// //add employeejs
-
-// //add template HTML
     
 // const createHTML = require("./src/templatehelpercode.html")
 // console.log(createHTML)
@@ -102,28 +149,28 @@ inquirer.prompt(questions).then((answers) => {
 // async function questions() {
 //     const content = await inquirer
 //         .prompt([
-//             {
-//                 type: "input",
-//                 message: "Team managers name?",
-//                 name: "name",
-//             },
-//             {
-//                 type: "input",
-//                 message: "Team manager ID number?",
-//                 name: "ID",
-//             },
-//             {
-//                 type: "input",
-//                 message: "Team manager email address?",
-//                 name: "email",
-//             },
-//             {
-//                 type: "input",
-//                 message: "Team manager office number?",
-//                 name: "officeNumber",
-//             },
-//         ])
-//     }
+    //         {
+    //             type: "input",
+    //             message: "Team managers name?",
+    //             name: "name",
+    //         },
+    //         {
+    //             type: "input",
+    //             message: "Team manager ID number?",
+    //             name: "ID",
+    //         },
+    //         {
+    //             type: "input",
+    //             message: "Team manager email address?",
+    //             name: "email",
+    //         },
+    //         {
+    //             type: "input",
+    //             message: "Team manager office number?",
+    //             name: "officeNumber",
+    //         },
+    //     ])
+    // }
 
     // const createTeam = async function questions () {
     //     const createMember = await inquirer
@@ -191,12 +238,12 @@ inquirer.prompt(questions).then((answers) => {
     //         return createTeamMember;
     //     }
 
-        // else {
-        //     const writeHtml = () => {
-        //         const html = createHTML(content);
-        //         fs.writeFileSync("./public/index.html", html)
-        //     }   
-        // }
+    //     else {
+    //         const writeHtml = () => {
+    //             const html = createHTML(content);
+    //             fs.writeFileSync("./public/index.html", html)
+    //         }   
+    //     }
 
     // <div class="card employee">
     //     <div class="card-header">
