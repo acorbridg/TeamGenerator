@@ -28,7 +28,6 @@ const ManagerTemplate = `
         <ul class="information">
             <li>ID: $IDNUMBER</li>
             <li>Email: <a href="mailto:email address">$EMAIL</a></li>
-            <li>Phone: $PHONE</li>
             <li>Office Number: $OFFICE </li>
         </ul>
     </div>
@@ -72,17 +71,30 @@ const questions = [
         name: "officeNumber",
     },
     
-    {
-        type: "list",
-        message: "Enter new employee",
-        name: "employeeType",
-        choices: ["Engineer", "Intern", "Finish building my team"]
-    },
 ]
 
-function createMember() {
-    if (createMember.employeeType === "Engineer") {
+function askTheQuestion() {
+    const theQuestion = [
+        {
+            type: "list",
+            message: "Enter new employee",
+            name: "employeeType",
+            choices: ["Engineer", "Intern", "Finish building my team"]
+        },
+    ]
+    inquirer.prompt(theQuestion).then((answers) => {
+        if (answers.employeeType === "Engineer")
+        createEngineer();
+        else if (answers.employeeType === "Intern")
+        createIntern();
+        else 
+        generateFile();
+    })
+}
+
+function createEngineer() {
         const engineerQuestions = [
+            
             {
                 type: "input",
                 message: "Engineer's name?",
@@ -104,44 +116,51 @@ function createMember() {
                 name: "engineerGithub",
             },
         ]
+        inquirer.prompt(engineerQuestions).then((answers) => {
+            const engineer = new Engineer(answers.id,answers.name,answers.email,answers.github);
+            content.push(engineer)
+            askTheQuestion()
+        })
     }
+
+
+function createIntern() {
+    const internQuestions = [
+        {
+            type: "input",
+            message: "Intern's name?",
+            name: "internName",
+        },
+        {
+            type: "input",
+            message: "Intern's ID number?",
+            name: "internID",
+        },
+        {
+            type: "input",
+            message: "Intern's email address?",
+            name: "internEmail",
+        },
+        {
+            type: "input",
+            message: "Intern's school?",
+            name: "internOffice",
+        },
+    ]
+    inquirer.prompt(internQuestions).then((answers) => {
+        const intern = new Intern(answers.id,answers.name,answers.email,answers.school);
+        content.push(intern);
+        askTheQuestion();
+    })
 }
 
-// else if (answers.employeeType === "Intern") {
-//     const internQuestions = await inquirer
-//     .createPromptModule([
-//         {
-//             type: "input",
-//             message: "Intern's name?",
-//             name: "internName",
-//         },
-//         {
-//             type: "input",
-//             message: "Intern's ID number?",
-//             name: "internID",
-//         },
-//         {
-//             type: "input",
-//             message: "Intern's email address?",
-//             name: "internEmail",
-//         },
-//         {
-//             type: "input",
-//             message: "Intern's school?",
-//             name: "internOffice",
-//         },
-//     ])
-//     return createTeamMember;
-// }
-
-
 inquirer.prompt(questions).then((answers) => {
-    // let employee = new Engineer(answers.id,answers.name,answers.email,answers.github);
-    // let employee = new Intern (answers.id,answers.name,answers.email,answers.school);
     let employee = new Manager (answers.id,answers.name,answers.email,answers.office); 
     content.push(employee)
-    generateFile()
-});
+    askTheQuestion();
+    // generateFile()
+    })
+
     
 // const createHTML = require("./src/templatehelpercode.html")
 // console.log(createHTML)
@@ -238,12 +257,12 @@ inquirer.prompt(questions).then((answers) => {
     //         return createTeamMember;
     //     }
 
-    //     else {
-    //         const writeHtml = () => {
-    //             const html = createHTML(content);
-    //             fs.writeFileSync("./public/index.html", html)
-    //         }   
-    //     }
+        // else {
+        //     const writeHtml = () => {
+        //         const html = createHTML(content);
+        //         fs.writeFileSync("./public/index.html", html)
+        //     }   
+        // }
 
     // <div class="card employee">
     //     <div class="card-header">
