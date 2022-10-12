@@ -1,7 +1,7 @@
-import Intern from "./employeejs/Intern.js"
+const Intern = require ("../employeejs/Intern.js")
 
 
-// test('what the test does', () => {
-//     const variable = ();
-//     expect(variable.variable).toBe('object')
-// })
+test('Intern; School', () => {
+    const intern = new Intern ("","","","Utah Valley University");
+    expect(intern.getSchool()).toBe("Utah Valley University");
+})

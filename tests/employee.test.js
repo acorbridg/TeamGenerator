@@ -1,7 +1,9 @@
-import Employee from "../employeejs/Employee"
+const Employee = require ("../employeejs/Employee")
 
 
-test('what the test does', () => {
-    const variable = ('object');
-    expect(variable).toBe('notobject')
+test('Employee; id, name and email', () => {
+    const employee = new Employee ("1","George","georgie@gmail.com");
+    expect(employee.getId()).toBe("1")
+    expect(employee.getName()).toBe("George")
+    expect(employee.getEmail()).toBe("georgie@gmail.com")
 })

@@ -1,6 +1,6 @@
-import Engineer from "./employeejs/Engineer.js"
+const Engineer = require ("../employeejs/engineer.js")
 
-// test('what the test does', () => {
-//     const variable = ();
-//     expect(variable.variable).toBe('object')
-// })
+test('Engineer; Github', () => {
+    const engineer = new Engineer ("1","George","georgie@gmail.com","george123");
+    expect(engineer.getGithub()).toBe("george123")
+})

@@ -1,8 +1,6 @@
-import Manager from "./employeejs/Manager.js"
+const Manager  = require ("../employeejs/Manager.js")
 
-// test('what the test does', () => {
-//     const variable = ();
-//     expect(variable.variable).toBe('object')
-// }) 
-
-// const content = [new Engineer("1", "audrey", "adybass@gmail.com", "acorbridg")]
+test('Manager; Office number', () => {
+    const manager = new Manager ("","","","The one with a window");
+    expect(manager.getOffice()).toBe("The one with a window");
+})
