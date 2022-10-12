@@ -1,4 +1,4 @@
-const intern = require("../employeejs/Intern")
+import Intern from "./employeejs/Intern.js"
 
 
 // test('what the test does', () => {

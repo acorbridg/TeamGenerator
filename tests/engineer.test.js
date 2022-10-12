@@ -1,4 +1,4 @@
-const engineer = require("../employeejs/engineer")
+import Engineer from "./employeejs/Engineer.js"
 
 // test('what the test does', () => {
 //     const variable = ();

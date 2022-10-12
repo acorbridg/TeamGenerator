@@ -1,4 +1,4 @@
-const manager = require("../employeejs/Manager")
+import Manager from "./employeejs/Manager.js"
 
 // test('what the test does', () => {
 //     const variable = ();

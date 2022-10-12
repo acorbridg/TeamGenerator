@@ -1,8 +1,9 @@
-import fs from "fs";
-import inquirer from "inquirer"
-import Intern from "./employeejs/Intern.js"
-import Engineer from "./employeejs/Engineer.js"
-import Manager from "./employeejs/Manager.js"
+const fs = require ("fs");
+const inquirer = require("inquirer")
+const Employee = require("./employeejs/Employee.js")
+const Intern = require("./employeejs/Intern.js")
+const Engineer = require("./employeejs/Engineer.js")
+const Manager = require("./employeejs/Manager.js")
 const content = []
 const EmployeeTemplate = `
 <div class="card employee">
@@ -34,19 +35,11 @@ const ManagerTemplate = `
 </div>`;
 
 function generateFile () {
-    fs.readFile('./src/htmltemplate.html', 'utf8', function(err, html){
-        let allCards = ""
-        content.forEach(element => {
-            let currentCard = EmployeeTemplate.slice();
-            currentCard = currentCard.replace("$NAME", element.getName());
-            currentCard = currentCard.replace("$TITLE", element.getRole());
-            currentCard = currentCard.replace("$EMAIL", element.getEmail());
-            currentCard = currentCard.replace("$IDNUMBER", element.getId());;
-            allCards += currentCard
-        });
-        html = html.replace("$CARD", allCards )
-        fs.writeFileSync("./public/index.html", html)
-    });
+    const allCards = content.reduce((prev, item) => {
+        return prev + item.render()            
+    },'');
+    const html = Employee.renderBaseTemplate (allCards)
+    fs.writeFileSync("./public/index.html", html)
 }
 
 const questions = [
@@ -58,7 +51,7 @@ const questions = [
     {
         type: "input",
         message: "Team manager ID number?",
-        name: "ID",
+        name: "id",
     },
     {
         type: "input",
@@ -98,22 +91,22 @@ function createEngineer() {
             {
                 type: "input",
                 message: "Engineer's name?",
-                name: "engineerName",
+                name: "name",
             },
             {
                 type: "input",
                 message: "Engineer's ID number?",
-                name: "engineerID",
+                name: "id",
             },
             {
                 type: "input",
                 message: "Engineer's email address?",
-                name: "engineerEmail",
+                name: "email",
             },
             {
                 type: "input",
                 message: "Engineer's Github username?",
-                name: "engineerGithub",
+                name: "github",
             },
         ]
         inquirer.prompt(engineerQuestions).then((answers) => {
@@ -129,22 +122,22 @@ function createIntern() {
         {
             type: "input",
             message: "Intern's name?",
-            name: "internName",
+            name: "name",
         },
         {
             type: "input",
             message: "Intern's ID number?",
-            name: "internID",
+            name: "id",
         },
         {
             type: "input",
             message: "Intern's email address?",
-            name: "internEmail",
+            name: "email",
         },
         {
             type: "input",
             message: "Intern's school?",
-            name: "internOffice",
+            name: "school",
         },
     ]
     inquirer.prompt(internQuestions).then((answers) => {
@@ -155,9 +148,11 @@ function createIntern() {
 }
 
 inquirer.prompt(questions).then((answers) => {
-    let employee = new Manager (answers.id,answers.name,answers.email,answers.office); 
+    let employee = new Manager (answers.id,answers.name,answers.email,answers.officeNumber); 
     content.push(employee)
+    console.log(employee)
     askTheQuestion();
+    
     // generateFile()
     })
 
