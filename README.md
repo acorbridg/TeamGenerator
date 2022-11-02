@@ -8,7 +8,11 @@ This project generates a Team Profile webpage using the inquirer package. This c
 
 * Inquirer package prompts user for information on manager, followed by a prompt to select an Employee type (Intern, Engineer) or to finish building the team 
 
-Website URL: https://acorbridg.github.io/teamProfileGenerator/
+![gif of tests being run and index.html generating](https://github.com/acorbridg/TeamGenerator/TeamGenerator.gif) "Team Generator")
+
+
+Repository URL: https://github.com/acorbridg/TeamGenerator
+
 
 
 
