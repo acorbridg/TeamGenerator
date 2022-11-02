@@ -12,6 +12,7 @@ This project generates a Team Profile webpage using the inquirer package. This c
 
 
 Repository URL: https://github.com/acorbridg/TeamGenerator
+Functionality Video: https://drive.google.com/file/d/1qwgLzSmJzd3kBOyA2F8nQ88BPq4_XYE6/view
 
 
 
